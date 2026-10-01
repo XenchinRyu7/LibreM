@@ -1,0 +1,15 @@
+PERJANJIAN LISENSI PENGGUNA AKHIR (EULA)
+LIBREM - SISTEM OTOMASI PERPUSTAKAAN MODERN
+
+Hak Cipta (c) 2026 LibreM Project. Seluruh hak cipta dilindungi undang-undang.
+
+1. PEMBERIAN LISENSI
+LibreM memberikan hak non-eksklusif kepada Anda untuk menginstal, menggunakan, dan menjalankan perangkat lunak ini untuk kebutuhan otomasi perpustakaan sekolah, universitas, maupun instansi publik.
+
+2. KEAMANAN & PRIVASI DATA
+Seluruh data bibliografi, riwayat transaksi sirkulasi, dan data identitas pemustaka disimpan secara lokal (on-premise) di komputer/server Anda menggunakan engine basis data PostgreSQL. LibreM tidak mengirimkan data transaksi perpustakaan ke server pihak ketiga tanpa persetujuan Anda.
+
+3. KETENTUAN PENGGUNAAN
+Perangkat lunak ini disediakan "SEBAGAIMANA ADANYA", tanpa jaminan tersurat maupun tersirat. Pengembang tidak bertanggung jawab atas kehilangan data yang diakibatkan oleh kerusakan perangkat keras pengguna.
+
+Dengan mengklik "Lanjut" atau memasang perangkat lunak ini, Anda menyetujui seluruh ketentuan di atas.
