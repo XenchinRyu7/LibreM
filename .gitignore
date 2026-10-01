@@ -1,0 +1,39 @@
+# Environment Files
+.env
+.env.local
+.env.*.local
+
+# Binaries & Build Outputs
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+dist/
+bin/
+LibreM.exe
+!tools/nsis/**
+
+# Database & Runtime Data
+pgdata/
+pgsql/
+uploads/*
+!uploads/.gitkeep
+*.log
+librem.log
+
+# Node & Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.suo
+*.user
