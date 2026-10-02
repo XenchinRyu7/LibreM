@@ -53,11 +53,36 @@ Designed specifically for educational institutions, schools, and universities, L
 
 ---
 
+## Downloads & Releases (v1.0.0)
+
+Pre-built binaries, installers, and standalone archives are available directly from the [GitHub Releases v1.0.0](https://github.com/XenchinRyu7/LibreM/releases/tag/v1.0.0) page:
+
+| Operating System | Package Type | Artifact | Download Link | Notes |
+| :--- | :--- | :--- | :--- | :--- |
+| **Windows x64** | **Setup Installer** | `LibreM_Setup_v1.0.0.exe` | [Download Installer](https://github.com/XenchinRyu7/LibreM/releases/download/v1.0.0/LibreM_Setup_v1.0.0.exe) | Complete offline setup with embedded PostgreSQL portable |
+| **Windows x64** | **Standalone Portable** | `LibreM-v1.0.0-windows-amd64.zip` | [Download .zip](https://github.com/XenchinRyu7/LibreM/releases/download/v1.0.0/LibreM-v1.0.0-windows-amd64.zip) | Portable single binary with embedded frontend SPA |
+| **Linux x86_64** | **Server / Desktop** | `LibreM-v1.0.0-linux-amd64.tar.gz` | [Download .tar.gz](https://github.com/XenchinRyu7/LibreM/releases/download/v1.0.0/LibreM-v1.0.0-linux-amd64.tar.gz) | Headless server and workstation executable |
+| **macOS Apple Silicon** | **ARM64 (M1-M4)** | `LibreM-v1.0.0-darwin-arm64.tar.gz` | [Download .tar.gz](https://github.com/XenchinRyu7/LibreM/releases/download/v1.0.0/LibreM-v1.0.0-darwin-arm64.tar.gz) | Optimized for modern Apple Silicon chips |
+| **macOS Intel** | **x86_64** | `LibreM-v1.0.0-darwin-amd64.tar.gz` | [Download .tar.gz](https://github.com/XenchinRyu7/LibreM/releases/download/v1.0.0/LibreM-v1.0.0-darwin-amd64.tar.gz) | For Intel-based Mac hardware |
+| **Source Code** | **Archive** | `Source code (zip / tar.gz)` | [Source .zip](https://github.com/XenchinRyu7/LibreM/archive/refs/tags/v1.0.0.zip) · [Source .tar.gz](https://github.com/XenchinRyu7/LibreM/archive/refs/tags/v1.0.0.tar.gz) | Full project source repository |
+
+### SHA-256 Checksums
+
+```text
+05362f9ed99ec95bfc289f717a235060b4860581d097fb33eefac90eca89c173  LibreM_Setup_v1.0.0.exe
+df9a7dd2edeeb5f2ba310a755fc7e9109664d7c472bdbefce83cc627c8449967  LibreM-v1.0.0-windows-amd64.zip
+9bfb378337549217ee0396e5b4fd5852acc39e71c3f67ca72d96d4abb4c79093  LibreM-v1.0.0-linux-amd64.tar.gz
+132d2df232d393ce422ce6b84f4258be9f189faec5690064bb2d991d1db8b19c  LibreM-v1.0.0-darwin-arm64.tar.gz
+97342fc54ca1e3288afff17fcbe5d7e4b8cb5bf8fb5c438bd1c76b2a844b27c8  LibreM-v1.0.0-darwin-amd64.tar.gz
+```
+
+---
+
 ## Quick Start
 
 ### 1. Windows Desktop Installer (Production)
 
-Download the latest installer from the [Releases](https://github.com/LibreM/LibreM/releases) section:
+Download the latest installer from the [Releases](https://github.com/XenchinRyu7/LibreM/releases/tag/v1.0.0) section:
 
 1. Execute `LibreM_Setup_v1.0.0.exe`.
 2. Follow the setup wizard to configure:
@@ -83,7 +108,7 @@ Default local endpoints:
 #### Clone and Install Dependencies
 
 ```bash
-git clone https://github.com/LibreM/LibreM.git
+git clone https://github.com/XenchinRyu7/LibreM.git
 cd LibreM
 
 # Install frontend dependencies
