@@ -8,44 +8,10 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"syscall"
 	"time"
-	"unsafe"
 
 	"github.com/jackc/pgx/v5"
 )
-
-var (
-	advapi32              = syscall.NewLazyDLL("advapi32.dll")
-	createRestrictedToken = advapi32.NewProc("CreateRestrictedToken")
-)
-
-// getRestrictedToken creates a restricted token where Administrator privileges are stripped,
-// allowing PostgreSQL to start without complaining about running as Administrator.
-func getRestrictedToken() (syscall.Token, error) {
-	var currentToken syscall.Token
-	hProcess, _ := syscall.GetCurrentProcess()
-	err := syscall.OpenProcessToken(hProcess, syscall.TOKEN_DUPLICATE|syscall.TOKEN_QUERY|syscall.TOKEN_ASSIGN_PRIMARY, &currentToken)
-	if err != nil {
-		return 0, err
-	}
-	defer currentToken.Close()
-
-	var restrictedToken syscall.Token
-	// Flags: 1 = DISABLE_MAX_PRIVILEGE (drops Administrator group and all elevation privileges)
-	r1, _, err := createRestrictedToken.Call(
-		uintptr(currentToken),
-		1,
-		0, 0,
-		0, 0,
-		0, 0,
-		uintptr(unsafe.Pointer(&restrictedToken)),
-	)
-	if r1 == 0 {
-		return 0, err
-	}
-	return restrictedToken, nil
-}
 
 // PortablePostgres manages the embedded PostgreSQL child process
 type PortablePostgres struct {
@@ -113,12 +79,6 @@ func StartPortablePostgres(baseDir string, port string) (*PortablePostgres, erro
 		_ = os.Remove(pidFile)
 	}
 
-	// Buat restricted token jika proses ini memiliki hak Administrator
-	var tok syscall.Token
-	if rTok, err := getRestrictedToken(); err == nil {
-		tok = rTok
-	}
-
 	// 1. Inisialisasi Database jika folder data belum ada
 	pgVersionFile := filepath.Join(dataDir, "PG_VERSION")
 	if _, err := os.Stat(pgVersionFile); os.IsNotExist(err) {
@@ -126,14 +86,7 @@ func StartPortablePostgres(baseDir string, port string) (*PortablePostgres, erro
 		_ = os.MkdirAll(dataDir, 0755)
 
 		initCmd := exec.Command(initdbExe, "-D", dataDir, "-U", "postgres", "--auth=trust", "--encoding=UTF8", "--locale=C")
-		initProcAttr := &syscall.SysProcAttr{
-			HideWindow:    true,
-			CreationFlags: 0x08000000, // CREATE_NO_WINDOW
-		}
-		if tok != 0 {
-			initProcAttr.Token = tok
-		}
-		initCmd.SysProcAttr = initProcAttr
+		prepareCmdAttrs(initCmd)
 
 		out, err := initCmd.CombinedOutput()
 		if err != nil {
@@ -143,17 +96,10 @@ func StartPortablePostgres(baseDir string, port string) (*PortablePostgres, erro
 		log.Println("✓ Inisialisasi PostgreSQL cluster selesai.")
 	}
 
-	// 2. Jalankan PostgreSQL sebagai Child Process Go dengan token ter-restriksi
+	// 2. Jalankan PostgreSQL sebagai Child Process Go
 	log.Printf("🚀 Menjalankan engine PostgreSQL portable pada port %s (Data: %s)...", port, dataDir)
 	pgCmd := exec.Command(postgresExe, "-D", dataDir, "-p", port)
-	sysProcAttr := &syscall.SysProcAttr{
-		HideWindow:    true,
-		CreationFlags: 0x08000000, // CREATE_NO_WINDOW
-	}
-	if tok != 0 {
-		sysProcAttr.Token = tok
-	}
-	pgCmd.SysProcAttr = sysProcAttr
+	prepareCmdAttrs(pgCmd)
 
 	// Redirect output log postgres
 	pgLogPath := filepath.Join(dataDir, "postgres.log")
@@ -211,10 +157,7 @@ func (p *PortablePostgres) Stop() {
 	pgctlExe := filepath.Join(p.BinDir, "pg_ctl.exe")
 	if _, err := os.Stat(pgctlExe); err == nil {
 		stopCmd := exec.Command(pgctlExe, "stop", "-D", p.DataDir, "-m", "fast")
-		stopCmd.SysProcAttr = &syscall.SysProcAttr{
-			HideWindow:    true,
-			CreationFlags: 0x08000000, // CREATE_NO_WINDOW
-		}
+		prepareCmdAttrs(stopCmd)
 		_ = stopCmd.Run()
 	}
 
