@@ -1,0 +1,10 @@
+{
+  "id": "MBR-TEST-001",
+  "full_name": "Budi Santoso",
+  "gender": "M",
+  "member_type_id": 1,
+  "email": "budi.santoso@sekolah.sch.id",
+  "phone": "081234567890",
+  "address": "Jl. Pendidikan No. 45",
+  "institution": "Kelas X MIPA 1"
+}
