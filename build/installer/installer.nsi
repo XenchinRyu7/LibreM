@@ -25,9 +25,14 @@ ShowInstDetails show
 ShowUnInstDetails show
 RequestExecutionLevel admin
 
-; UI Configuration (Dark Theme Accents)
+; UI Configuration (Dark Theme Accents & App Icons)
+Icon "LibreM.ico"
+UninstallIcon "LibreM.ico"
 !define MUI_ICON "LibreM.ico"
 !define MUI_UNICON "LibreM.ico"
+!define MUI_HEADERIMAGE
+!define MUI_HEADERIMAGE_RIGHT
+!define MUI_HEADERIMAGE_BITMAP "installer_header.bmp"
 !define MUI_ABORTWARNING
 
 ; Variables for Custom Setup Page

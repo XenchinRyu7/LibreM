@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { BookOpen, Eye, EyeOff, Loader2 } from 'lucide-react';
+import { Library, Eye, EyeOff, Loader2 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
 export const LoginPage: React.FC = () => {
@@ -30,13 +30,10 @@ export const LoginPage: React.FC = () => {
 
       {/* Epic Games-Style Auth Card */}
       <div className="w-full max-w-[450px] bg-[#181920] rounded-md px-8 py-10 shadow-2xl flex flex-col my-auto border border-zinc-800/80">
-        {/* Emblem Logo */}
+        {/* Emblem Logo - Consistent with Sidebar Neoclassical Library */}
         <div className="flex justify-center mb-6">
-          <div className="w-12 h-14 bg-white rounded flex flex-col items-center justify-center shadow-md">
-            <BookOpen className="w-7 h-7 text-black stroke-[2.2]" />
-            <span className="text-[7px] font-black tracking-widest text-black leading-none mt-1">
-              LIBREM
-            </span>
+          <div className="w-12 h-12 rounded-lg bg-white text-zinc-950 flex items-center justify-center shadow-lg">
+            <Library className="w-7 h-7 stroke-[2]" />
           </div>
         </div>
 

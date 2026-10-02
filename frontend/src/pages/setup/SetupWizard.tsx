@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ShieldCheck, Database, Palette, User, CheckCircle2, Loader2, Cpu } from 'lucide-react';
+import { ShieldCheck, Database, Palette, User, CheckCircle2, Loader2, Cpu, Library } from 'lucide-react';
 import { apiRequest } from '@/lib/api';
 
 export const SetupWizard: React.FC = () => {
@@ -134,9 +134,15 @@ export const SetupWizard: React.FC = () => {
       <div className="max-w-2xl mx-auto w-full">
         {/* Step Progress Indicators */}
         <div className="text-center mb-8">
+          {/* Brand Emblem */}
+          <div className="flex justify-center mb-4">
+            <div className="w-11 h-11 rounded-lg bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 flex items-center justify-center shadow-md">
+              <Library className="w-6 h-6 stroke-[2]" />
+            </div>
+          </div>
           <h1 className="text-2xl font-bold tracking-tight">Konfigurasi Awal LibreM</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Setup instalasi sistem perpustakaan
+            Setup instalasi sistem perpustakaan modern
           </p>
 
           <div className="flex items-center justify-center gap-2 mt-5">
@@ -154,7 +160,7 @@ export const SetupWizard: React.FC = () => {
                   key={s.num}
                   className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-medium transition-all ${
                     isActive
-                      ? 'bg-blue-600 text-white shadow-xs'
+                      ? 'bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 shadow-xs'
                       : isPast
                       ? 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
                       : 'bg-slate-100 dark:bg-slate-900 text-slate-400'
