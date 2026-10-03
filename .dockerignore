@@ -1,0 +1,31 @@
+.git
+.github
+.gitignore
+.env
+.env.local
+*.log
+librem.log
+
+# Build & binary outputs
+dist/
+build/
+*.exe
+*.ico
+*.syso
+*.zip
+*.tar.gz
+checksums.txt
+
+# Local databases & tools
+pgdata/
+pgsql/
+tools/
+scratch/
+uploads/*
+!uploads/.gitkeep
+
+# Node & frontend cache
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.cache/

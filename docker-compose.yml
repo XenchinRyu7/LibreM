@@ -1,0 +1,66 @@
+services:
+  # ---------------------------------------------------------------------------
+  # LibreM Core Application Service
+  # ---------------------------------------------------------------------------
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: librem-app
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8080}:8080"
+    environment:
+      - PORT=8080
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=${DB_USER:-librem}
+      - DB_PASSWORD=${DB_PASSWORD:-LibremSecurePassword2026!}
+      - DB_NAME=${DB_NAME:-librem_db}
+      - DB_SSLMODE=disable
+      - JWT_SECRET=${JWT_SECRET:-librem-jwt-production-secret-replace-in-env-2026}
+      - STORAGE_PATH=/app/uploads
+      - SERVER_MODE=true
+    volumes:
+      - librem_uploads:/app/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - librem-network
+
+  # ---------------------------------------------------------------------------
+  # PostgreSQL 15 Relational Database
+  # ---------------------------------------------------------------------------
+  postgres:
+    image: postgres:15-alpine
+    container_name: librem-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-librem}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-LibremSecurePassword2026!}
+      POSTGRES_DB: ${DB_NAME:-librem_db}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - librem_pgdata:/var/lib/postgresql/data
+    ports:
+      - "${DB_PORT_HOST:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-librem} -d ${DB_NAME:-librem_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    networks:
+      - librem-network
+
+volumes:
+  librem_uploads:
+    name: librem_uploads
+  librem_pgdata:
+    name: librem_pgdata
+
+networks:
+  librem-network:
+    name: librem-network
+    driver: bridge

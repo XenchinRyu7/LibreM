@@ -3,7 +3,8 @@
 [![Go Version](https://img.shields.io/badge/Go-1.22+-00ADD8?style=flat-square&logo=go)](https://go.dev/)
 [![React](https://img.shields.io/badge/React-18.3-61DAFB?style=flat-square&logo=react)](https://react.dev/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-4169E1?style=flat-square&logo=postgresql)](https://www.postgresql.org/)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20x64%20%7C%20Linux-lightgrey?style=flat-square)]()
+[![Platform](https://img.shields.io/badge/Platform-Windows%20x64%20%7C%20Linux%20%7C%20macOS-lightgrey?style=flat-square)]()
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker)](Dockerfile)
 [![License](https://img.shields.io/badge/License-AGPLv3-blue.svg?style=flat-square)](LICENSE)
 
 LibreM is a high-performance, embedded-first Integrated Library System (ILS) engineered as a modern architectural evolution of SLiMS (Senayan Library Management System). 
@@ -141,6 +142,36 @@ go mod download
 ```
 
 The script compiles the production web bundle, builds the Go GUI binary with embedded assets, and generates the self-contained installer at `dist/LibreM_Setup_v1.0.0.exe`.
+
+---
+
+### 3. Deploy with Docker & Docker Compose (Server / Cloud)
+
+For Linux servers, school computer laboratories, VPS, or cloud deployments, run LibreM alongside PostgreSQL in containers with one command:
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/XenchinRyu7/LibreM.git
+cd LibreM
+
+# 2. Launch container stack (LibreM app + PostgreSQL 15)
+docker compose up -d
+```
+
+Verify service status:
+```bash
+docker compose ps
+docker compose logs -f app
+```
+
+Endpoints:
+- **Web Interface & Public OPAC**: `http://localhost:8080`
+- **Superadmin Portal**: `http://localhost:8080/login`
+
+To stop the containers:
+```bash
+docker compose down
+```
 
 ---
 

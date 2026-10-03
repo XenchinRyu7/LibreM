@@ -263,15 +263,16 @@ func main() {
 	log.Printf(" LibreM Core Server Listening on http://%s", addr)
 	log.Printf(" Local Access: %s", localURL)
 	log.Printf(" Machine ID  : %s", licenseService.GenerateMachineID())
-	if *serverMode {
-		log.Printf(" Mode        : Headless LAN Server")
+	isHeadlessServer := *serverMode || runtime.GOOS != "windows" || os.Getenv("SERVER_MODE") == "true" || os.Getenv("HEADLESS") == "true"
+	if isHeadlessServer {
+		log.Printf(" Mode        : Headless Server")
 	} else {
 		log.Printf(" Mode        : Windows Desktop Application")
 	}
 	log.Printf("==================================================")
 
 	// In Desktop Mode: Run background server and launch native window
-	if !*serverMode {
+	if !isHeadlessServer {
 		// Run Fiber REST API engine in background
 		go func() {
 			if err := app.Listen(addr); err != nil {
